@@ -22,3 +22,27 @@ services:
               count: 1
               capabilities: [gpu]
     restart: on-failure
+
+  validator:
+    build: .
+    entrypoint: "/bin/bash -c \"python neurons/validator.py --subtensor.chain_endpoint $${CHAIN_ENDPOINT} --subtensor.network $${NETWORK} --netuid $${NETUID} --wallet.name $${WALLET_COLDKEY} --wallet.hotkey $${WALLET_HOTKEY} --logging.trace\""
+    environment:
+      - CHAIN_ENDPOINT=wss://test.finney.opentensor.ai:443/
+      - NETWORK=test
+      - NETUID=96
+      - WALLET_COLDKEY=default
+      - WALLET_HOTKEY=default
+    volumes:
+      - ~/.bittensor/wallets:/root/.bittensor/wallets
+      - ~/.cache:/root/.cache
+    network_mode: host
+    deploy:
+      resources:
+        limits:
+          memory: 32G
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: on-failure
