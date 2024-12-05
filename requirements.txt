@@ -1,25 +1,26 @@
-bittensor==7.3.1
-torch==2.1.0
-torchaudio==2.1.0
-torchvision==0.16.0
+bittensor==8.3.1
+bittensor-wallet==2.1.1
+torch==2.5.1
+torchvision # because torch version already specific, the right torchvision will be derived automatically
+torchaudio # because torch version already specific, the right torchvision will be derived automatically
 datasets==2.17.1
 pinecone-client==3.1.0
 huggingface-hub==0.20.3
 ulid-py==1.1.0
 yt-dlp==2024.11.04
 ffmpeg-python==0.2.0
-imagebind @ git+https://github.com/omegalabsinc/ImageBind.git@e2bfdec716b1c1d511d6bea806227b2b3dfcadee#egg=imagebind
+imagebind @ git+https://github.com/vklachkov/OmegalabsImageBind.git@0704c7987a9c9434d41ad9d97956e7da54d5de50#egg=imagebind
 openai==1.51.0
 transformers==4.38.2
 accelerate==0.28.0
 sentencepiece==0.2.0
 protobuf==3.20.3
-wandb==0.16.6
-numpy==1.26.4
+wandb==0.18.7
+numpy>=2.0
 python-dotenv==1.0.1
 google-generativeai
 boto3
 tabulate
 soundfile==0.12.1
-pyannote-audio==3.1.1
+pyannote-audio==3.3.2
 librosa==0.10.2.post1
