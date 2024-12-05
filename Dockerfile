@@ -26,10 +26,10 @@ WORKDIR /app/
 COPY ./requirements.txt ./requirements.txt
 COPY ./requirements_api.txt ./requirements_api.txt
 
-RUN uv pip install -r requirements_api.txt --prerelease=allow --no-cache-dir
+RUN uv pip install -r requirements_api.txt --prerelease=allow --system --no-cache-dir
 
 COPY . .
-RUN uv pip install -e . --no-cache-dir
+RUN uv pip install -e . --system --no-cache-dir
 
 ENTRYPOINT bash
 
