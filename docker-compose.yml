@@ -9,8 +9,8 @@ services:
       - WALLET_COLDKEY=default
       - WALLET_HOTKEY=default
     volumes:
-      - ~/.cache/:/root/.cache/
-      - ~/.bittensor/wallets/:/root/.bittensor/wallets/:ro
+      - ~/.bittensor/wallets:/root/.bittensor/wallets
+      - ~/.cache:/root/.cache
     network_mode: host
     deploy:
       resources:
