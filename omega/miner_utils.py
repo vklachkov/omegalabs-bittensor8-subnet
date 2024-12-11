@@ -1,7 +1,7 @@
 from io import BytesIO
 import os
 import time
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 import soundfile as sf
 import bittensor as bt
@@ -45,7 +45,7 @@ def get_relevant_timestamps(query: str, yt: video_utils.YoutubeDL, video_path: s
     return start_time, end_time
 
 
-def search_and_embed_youtube_videos(query: str, num_videos: int, imagebind: ImageBind) -> List[VideoMetadata]:
+def search_and_embed_youtube_videos(query: str, num_videos: int, imagebind: ImageBind, proxy: Optional[str]=None) -> List[VideoMetadata]:
     """
     Search YouTube for videos matching the given query and return a list of VideoMetadata objects.
 
@@ -57,7 +57,7 @@ def search_and_embed_youtube_videos(query: str, num_videos: int, imagebind: Imag
         List[VideoMetadata]: A list of VideoMetadata objects representing the search results.
     """
     # fetch more videos than we need
-    results = video_utils.search_videos(query, max_results=int(num_videos * 1.5))
+    results = video_utils.search_videos(query, max_results=int(num_videos * 1.5), proxy=proxy)
     video_metas = []
     try:
         # take the first N that we need
@@ -66,7 +66,8 @@ def search_and_embed_youtube_videos(query: str, num_videos: int, imagebind: Imag
             download_path = video_utils.download_youtube_video(
                 result.video_id,
                 start=0,
-                end=min(result.length, FIVE_MINUTES)  # download the first 5 minutes at most
+                end=min(result.length, FIVE_MINUTES),  # download the first 5 minutes at most
+                proxy=proxy,
             )
             if download_path:
                 clip_path = None

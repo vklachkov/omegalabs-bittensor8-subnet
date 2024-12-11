@@ -51,7 +51,7 @@ class YoutubeResult(BaseModel):
     views: int
 
 
-def search_videos(query, max_results=8):
+def search_videos(query, max_results=8, proxy: Optional[str]=None):
     videos = []
     ydl_opts = {
         "format": "worst",
@@ -61,6 +61,8 @@ def search_videos(query, max_results=8):
         "simulate": True,
         "match_filter": skip_live,
     }
+    if proxy is not None:
+        ydl_opts["proxy"] = proxy
     with YoutubeDL(ydl_opts) as ydl:
         try:
             search_query = f"ytsearch{max_results}:{query}"
@@ -108,11 +110,13 @@ def download_youtube_video(
         raise FakeVideoException(f"Invalid Youtube video ID: {video_id}")
 
     video_url = f"https://www.youtube.com/watch?v={video_id}"
-    
+    print(f"Video {video_url}")
+
     temp_fileobj = tempfile.NamedTemporaryFile(suffix=".mp4")
     
     ydl_opts = {
-        "format": "worst",  # Download the worst quality
+        "format": "worstvideo+worstaudio",
+        "check_formats": False,
         "outtmpl": temp_fileobj.name,  # Set the output template to the temporary file"s name
         "overwrites": True,
         "quiet": True,
@@ -130,6 +134,10 @@ def download_youtube_video(
         with YoutubeDL(ydl_opts) as ydl:
             ydl.download([video_url])
 
+        print(f"Downloaded to {temp_fileobj.name}")
+        while True:
+            pass
+        
         # Check if the file is empty (download failed)
         if os.stat(temp_fileobj.name).st_size == 0:
             print(f"Error downloading Youtube video: {temp_fileobj.name} is empty")

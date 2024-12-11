@@ -7,7 +7,7 @@ datasets==2.17.1
 pinecone-client==3.1.0
 huggingface-hub==0.20.3
 ulid-py==1.1.0
-yt-dlp==2024.11.04
+yt-dlp==2024.12.6
 ffmpeg-python==0.2.0
 imagebind @ git+https://github.com/vklachkov/OmegalabsImageBind.git@0704c7987a9c9434d41ad9d97956e7da54d5de50#egg=imagebind
 openai==1.51.0

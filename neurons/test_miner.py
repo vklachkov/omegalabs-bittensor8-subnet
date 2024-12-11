@@ -8,7 +8,8 @@ imagebind = ImageBind(v2=True)
 start = time.time()
 query = "wine and winemaking"
 num_videos = 8
-video_metadata_list = search_and_embed_youtube_videos(query, num_videos, imagebind)
+proxy = ""
+video_metadata_list = search_and_embed_youtube_videos(query, num_videos, imagebind, proxy=proxy)
 time_elapsed = time.time() - start
 
 if time_elapsed > VALIDATOR_TIMEOUT or len(video_metadata_list) < num_videos:
