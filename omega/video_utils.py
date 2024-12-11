@@ -135,8 +135,6 @@ def download_youtube_video(
             ydl.download([video_url])
 
         print(f"Downloaded to {temp_fileobj.name}")
-        while True:
-            pass
         
         # Check if the file is empty (download failed)
         if os.stat(temp_fileobj.name).st_size == 0:
